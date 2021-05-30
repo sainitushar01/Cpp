@@ -1,12 +1,35 @@
 //gauss elimination
 /* In forward eliination
- we make matrix a uppertriangular and starts the back substitution*/
+ we make matrix a uppertriangular and starts the back substitution
+ W are using the techinque of partial pivoting to prevent from division by very very small number*/
  #include<bits/stdc++.h>
  using namespace std;
+ void swap(vector< vector<double> >& a,int i,int j)
+ {
+   for(int k=0;k<a.size();k++)
+   {
+     double temp=a[i][k];
+     a[i][k]=a[j][k];
+     a[j][k]=temp;
+   }
+   return ;
+ }
  void forward_elimination(vector< vector<double> >& a,vector<double>& b)
  {
    for(int k=0;k<a.size();k++)
    {
+     int max_index=k;
+     double max_value=a[k][k];
+     for(int i=k+1;i<n;i++)
+     {
+       if(abs(a[i][k])>max_value)
+       {
+         max_value=a[i][k];
+         max_index=i;
+       }
+     }
+     if(max_index!=k)
+     swap(a,max_index,k);
      for(int i=k+1;i<a.size();i++)
      {
        double factor=a[i][k]/a[k][k];
