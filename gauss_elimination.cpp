@@ -10,7 +10,7 @@
      for(int i=k+1;i<a.size();i++)
      {
        double factor=a[i][k]/a[k][k];
-       for(int j=k+1;j<a.size();j++)
+       for(int j=k;j<a.size();j++)
        {
          a[i][j]=a[i][j]-factor*a[k][j];
        }
