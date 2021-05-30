@@ -20,7 +20,7 @@
    {
      int max_index=k;
      double max_value=a[k][k];
-     for(int i=k+1;i<n;i++)
+     for(int i=k+1;i<a.size();i++)
      {
        if(abs(a[i][k])>max_value)
        {
