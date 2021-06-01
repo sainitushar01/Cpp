@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-void complete_elimination( vector<vector<double>>&a, vector<double>&b)//every element is made 0 except diagonal elements
+void complete_elimination( vector<vector<double>>&a, vector<double>&b)
 {
   int n=a.size();
   for(int i=0;i<n;i++)
@@ -8,7 +8,7 @@ void complete_elimination( vector<vector<double>>&a, vector<double>&b)//every el
     for(int j=i+1;j<n;j++)
     {
       double factor=a[j][i]/a[i][i];
-      for(int k=i;k<n;k++)
+      for(int k=0;k<n;k++)
       {
         a[j][k]=a[j][k]-factor*a[i][k];
       }
@@ -17,7 +17,7 @@ void complete_elimination( vector<vector<double>>&a, vector<double>&b)//every el
     for(int j=n-i-2;j>=0;j--)
     {
       double factor=a[j][n-1-i]/a[n-1-i][n-1-i];
-      for(int k=n-1-i;k>=0;k--)
+      for(int k=n-1;k>=0;k--)
       {
         a[j][k]=a[j][k]-factor*a[n-1-i][k];
       }
@@ -57,3 +57,4 @@ int main()
  }
  return 0;
 }
+
