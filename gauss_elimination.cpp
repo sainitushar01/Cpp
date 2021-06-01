@@ -4,7 +4,7 @@
  W are using the techinque of partial pivoting to prevent from division by very very small number*/
  #include<bits/stdc++.h>
  using namespace std;
- void swap(vector< vector<double> >& a,vector<double>&b,int i,int j)
+ void swap(vector< vector<double> >& a,vector<double>& b,int i,int j)
  {
    for(int k=0;k<a.size();k++)
    {
