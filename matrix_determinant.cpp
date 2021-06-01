@@ -1,60 +1,56 @@
-//Every matrix whose determinant is non zero ,there exists an inverse(i.e. for all non singular matrices)
 #include<bits/stdc++.h>
 using namespace std;
-void complete_elimination( vector<vector<double>>&a, vector<double>&b)//every element is made 0 except diagonal elements
-{
-  int n=a.size();
-  for(int i=0;i<n;i++)
-  {
-    for(int j=i+1;j<n;j++)
-    {
-      double factor=a[j][i]/a[i][i];
-      for(int k=i;k<n;k++)
-      {
-        a[j][k]=a[j][k]-factor*a[i][k];
-      }
-      b[j]=b[j]-factor*b[i];
-    }
-    for(int j=n-i-2;j>=0;j--)
-    {
-      double factor=a[j][n-1-i]/a[n-1-i][n-1-i];
-      for(int k=n-1-i;k>=0;k--)
-      {
-        a[j][k]=a[j][k]-factor*a[n-1-i][k];
-      }
-      b[j]=b[j]-factor*b[n-1-i];
-    }
-  }
-  return ;
+#define ll long long
+vector<vector<double>> getcofactor(vector<vector<double>>&a,int pi,int pj){
+	int n=a.size();
+	vector<vector<double>>temp(n-1,(vector<double>(n-1,0)));
+	int i=0,j=0;
+	for(int q=0;q<n;q++)
+	{
+		for(int w=0;w<n;w++)
+		{
+			if(q!=pi && w!=pj)
+			{
+				temp[i][j++]=a[q][w];
+				if(j==n-1)
+				{
+					j=0;
+					i++;
+				}
+			}
+		}
+	}
+	return temp;
 }
- vector<double>little_substitution(vector<vector<double>>&a, vector<double>&b)
- {
- 	int n=b.size();
-   vector<double>ans(n);
-   for(int i=0;i<n;i++)
-   ans.at(i)=b.at(i)/a[i][i];
-   return ans;
- }
+double determinant(vector<vector<double>>&a)
+{
+	int n=a.size();
+	if(n==1)
+	return a[0][0];
+	if(n==2)
+	return (a[0][0]*a[1][1]-a[1][0]*a[0][1]);
+
+	int sign=1;
+	double total_sum=0;
+	int j=0;
+	while(j<n)
+	{
+		vector<vector<double>>sub_matrix=getcofactor(a,0,j);
+		double det=determinant(sub_matrix);
+		total_sum+=(a[0][j]*det*sign);
+		sign=-1*sign;
+		j++;
+	}
+	return total_sum;
+}
 int main()
 {
-  int n;
-  cout<<"Enter the number of variables"<<endl;
-  cin>>n;
- vector<vector<double>>a(n,vector<double>(n,0));
- vector<double>b(n);
- cout<<"Enter the values in the matrix form for A"<<endl;
- for(int i=0;i<n;i++)
- for(int j=0;j<n;j++)
- cin>>a[i][j];
- cout<<"Enter the values in the matrix form for B only column matrix"<<endl;
- for(int j=0;j<n;j++)
- cin>>b[j];
- complete_elimination(a,b);
- vector<double>ans=little_substitution(a,b);
- cout<<"Solution of this system is:"<<endl;
- for(int i=0;i<(int)ans.size();i++)
- {
-   cout<<"x"<<i+1<<": "<<fixed<<setprecision(6)<<ans.at(i)<<endl;
- }
- return 0;
+	int n;
+	cout<<"Enter the size of the square matrix"<<endl;
+	cin>>n;
+	vector<vector<double>>a(n,vector<double>(n,0));
+	for(int i=0;i<n;i++)
+	for(int j=0;j<n;j++)
+	cin>>a[i][j];
+	cout<<"Determinant of the matrix is: "<<determinant(a)<<endl;
 }
