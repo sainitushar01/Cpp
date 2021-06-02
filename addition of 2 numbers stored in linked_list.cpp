@@ -83,6 +83,10 @@ struct Node* build_list(int n)
           if(rem>0)
           final.push_back(rem);
       }
+	 else{
+		   if(rem>0)
+          final.push_back(rem);
+	 }
       reverse(final.begin(),final.end());
       struct Node* final_head;
       struct Node* final_temp;
